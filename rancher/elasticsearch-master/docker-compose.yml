@@ -12,8 +12,6 @@ services:
       - ${data_path}:/data
       - ${xpack_volume}:/usr/share/elasticsearch/config/x-pack
       - ${log_path}:/usr/share/elasticsearch/logs
-    volumes_from:
-      - rancher-cattle-metadata
     environment:
       ES_CONFIG_NODEDATA: false
       ES_CONFIG_NODEMASTER: true
