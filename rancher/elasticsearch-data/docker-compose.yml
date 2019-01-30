@@ -1,0 +1,63 @@
+version: '2'
+volumes:
+  ${xpack_volume}:
+    driver: ${storage_driver}
+    external: true
+services:
+  elasticsearch:
+    tty: true
+    image: harbor.hm.dm.ad/logmanagement/elasticsearch:${es_version}
+    volumes:
+      - ${data_path}:/data
+      - ${xpack_volume}:/usr/share/elasticsearch/config/x-pack
+      - ${log_path}:/usr/share/elasticsearch/logs
+    environment:
+      ES_CONFIG_HOSTS_MASTER: elasticsearch-master
+      ELASTIC_PASSWORD: ${elastic_password}
+      ES_CONFIG_NODEDATA: true
+      ES_CONFIG_NODEMASTER: false
+      ES_MONITORING_ENABLED: ${enable_monitoring}
+      ES_CONFIG_DESTRUCTIVEREQUIRESNAME: true
+      ES_CONFIG_CLUSTERNAME: ${cluster_name}
+      ES_CONFIG_DISKWATERMARKLOW: 5gb
+      ES_CONFIG_DISKWATERMARKHIGH: 1gb
+      ES_CONFIG_DISKWATERMARKFLOODSTAGE: 1gb
+      ES_JVM_MEMORY: ${jvm_memory}
+      ES_CONFIG_HTTPMAXCONTENTLENGTH: 500mb
+      ES_CONFIG_PATHSDATA_1: /data
+      ES_SECURITY_LDAP_ENABLED: true
+      ES_SECURITY_LDAP_SERVERS_1: ${ldap_primary_server}
+      ES_SECURITY_LDAP_SERVERS_2: ${ldap_secondary_server}
+      ES_SECURITY_LDAP_USER: ${ldap_user}
+      ES_SECURITY_LDAP_PASSWORD: ${ldap_password}
+      ES_SECURITY_LDAP_USERSEARCH: ${ldap_user_search}
+      ES_SECURITY_LDAP_GROUPSEARCH: ${ldap_group_search}
+      ES_SECURITY_AUDIT_ENABLE: true
+      ES_SECURITY_AUDIT_OUTPUTS_1: logfile
+      ES_MONITORING_EXPORTERS_1: ${monitoring_url}
+      ES_MONITORING_USER: ${monitoring_user}
+      ES_MONITORING_PASSWORD: ${monitoring_password}
+    external_links:
+       - ${master_stack}:elasticsearch-master
+    ulimits:
+      nproc: 65535
+      nofile: 256000
+      memlock: -1
+    cap_add:
+      - IPC_LOCK
+    mem_limit: ${container_memory}
+    cpu_shares: ${cpu_shares}
+    labels:
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$$$${stack_name}/$$$${service_name}
+      io.rancher.scheduler.affinity:host_label: ${label_global_scheduling}
+      io.rancher.container.hostname_override: container_name
+      io.rancher.sidekicks: elasticsearch-config
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
+  elasticsearch-config:
+    network_mode: none
+    privileged: true
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+    image: harbor.hm.dm.ad/logmanagement/elasticsearch-config:1.0.2
