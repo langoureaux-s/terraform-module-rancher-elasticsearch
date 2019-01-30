@@ -100,6 +100,39 @@ variable "cpu_shares" {
   default = "1024"
 }
 
+variable "recover_after_nodes" {
+  description = "Recover as long as this many data or master nodes have joined the cluster."
+  default = ""
+}
+variable "recover_after_master_nodes" {
+  description = "Recover as long as this many master nodes have joined the cluster."
+  default = ""
+}
+variable "recover_after_data_nodes" {
+  description = "Recover as long as this many data nodes have joined the cluster."
+  default = ""
+}
+variable "expected_nodes" {
+  description = "The number of (data or master) nodes that are expected to be in the cluster. Recovery of local shards will start as soon as the expected number of nodes have joined the cluster"
+  default = ""
+}
+variable "expected_master_nodes" {
+  description = "The number of master nodes that are expected to be in the cluster. Recovery of local shards will start as soon as the expected number of master nodes have joined the cluster"
+  default = ""
+}
+variable "expected_data_nodes" {
+  description = "The number of data nodes that are expected to be in the cluster. Recovery of local shards will start as soon as the expected number of data nodes have joined the cluster"
+  default = ""
+}
+variable "minimum_master_nodes" {
+  description = "sets the minimum number of master eligible nodes that need to join a newly elected master in order for an election to complete and for the elected node to accept its mastership. The same setting controls the minimum number of active master eligible nodes that should be a part of any active cluster. If this requirement is not met the active master node will step down and a new master election will begin."
+}
+variable "master_hosts" {
+  description = "sets the masters hostnames or IP to use when discover"
+  type = "list"
+}
+
+
 
 
 

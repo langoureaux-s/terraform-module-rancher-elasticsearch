@@ -25,6 +25,12 @@ services:
       ES_CONFIG_DISKWATERMARKHIGH: 1gb
       ES_CONFIG_DISKWATERMARKFLOODSTAGE: 1gb
       ES_CONFIG_RECOVERAFTERTIME: 15m
+      ES_CONFIG_RECOVERAFTERMASTERNODES: ${recover_after_master_nodes}
+      ES_CONFIG_RECOVERAFTERDATANODES: ${recover_after_data_nodes}
+      ES_CONFIG_EXPECTEDMASTERNODES: ${expected_master_nodes}
+      ES_CONFIG_EXPECTEDDATANODES: ${expected_data_nodes}
+      ES_CONFIG_MINIMUMMASTERNODES: ${minimum_master_nodes}
+      ${master_hosts}
       ES_JVM_MEMORY: ${jvm_memory}
       ES_CONFIG_HTTPMAXCONTENTLENGTH: 500mb
       ES_CONFIG_PATHSDATA_1: /data
@@ -56,7 +62,7 @@ services:
       io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$$$${stack_name}/$$$${service_name}
       io.rancher.scheduler.affinity:host_label: ${label_global_scheduling}
       io.rancher.container.hostname_override: container_name
-      io.rancher.sidekicks: rancher-cattle-metadata,elasticsearch-config
+      io.rancher.sidekicks: elasticsearch-config
       io.rancher.container.pull_image: always
       io.rancher.scheduler.global: 'true'
   elasticsearch-config:
@@ -66,10 +72,3 @@ services:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
     image: harbor.hm.dm.ad/logmanagement/elasticsearch-config:1.0.2
-  rancher-cattle-metadata:
-    network_mode: none
-    labels:
-      io.rancher.container.hostname_override: container_name
-      io.rancher.container.start_once: "true"
-      io.rancher.container.pull_image: always
-    image: webcenter/rancher-cattle-metadata:1.0.2

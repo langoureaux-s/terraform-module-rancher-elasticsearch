@@ -12,7 +12,6 @@ services:
       - ${xpack_volume}:/usr/share/elasticsearch/config/x-pack
       - ${log_path}:/usr/share/elasticsearch/logs
     environment:
-      ES_CONFIG_HOSTS_MASTER: elasticsearch-master
       ELASTIC_PASSWORD: ${elastic_password}
       ES_CONFIG_NODEDATA: false
       ES_CONFIG_NODEMASTER: false
@@ -22,6 +21,13 @@ services:
       ES_CONFIG_DISKWATERMARKLOW: 5gb
       ES_CONFIG_DISKWATERMARKHIGH: 1gb
       ES_CONFIG_DISKWATERMARKFLOODSTAGE: 1gb
+      ES_CONFIG_RECOVERAFTERTIME: 15m
+      ES_CONFIG_RECOVERAFTERMASTERNODES: ${recover_after_master_nodes}
+      ES_CONFIG_RECOVERAFTERDATANODES: ${recover_after_data_nodes}
+      ES_CONFIG_EXPECTEDMASTERNODES: ${expected_master_nodes}
+      ES_CONFIG_EXPECTEDDATANODES: ${expected_data_nodes}
+      ES_CONFIG_MINIMUMMASTERNODES: ${minimum_master_nodes}
+      ${master_hosts}
       ES_JVM_MEMORY: ${jvm_memory}
       ES_CONFIG_HTTPMAXCONTENTLENGTH: 500mb
       ES_CONFIG_PATHSDATA_1: /data

@@ -13,6 +13,10 @@ data "rancher_environment" "project" {
   name = "${var.project_name}"
 }
 
+locals {
+  master_names = "${split(",", replace(upper(join(",", var.master_hosts)), "/[\\.-]/", ""))}"
+}
+
 
 
 # Deploy Elasticsearch master stack
@@ -21,29 +25,35 @@ data "template_file" "docker_compose_master" {
   template = "${file("${path.module}/rancher/elasticsearch-master/docker-compose.yml")}"
 
   vars {
-    logstash_password       = "${var.logstash_password}"
-    kibana_password         = "${var.kibana_password}"
-    elastic_password        = "${var.elastic_password}"
-    enable_monitoring       = "${var.enable_monitoring}"
-    monitoring_url          = "${var.monitoring_url}"
-    monitoring_user         = "${var.monitoring_user}"
-    monitoring_password     = "${var.monitoring_password}"
-    ldap_primary_server     = "${var.ldap_primary_server}"
-    ldap_secondary_server   = "${var.ldap_secondary_server}"
-    ldap_user_search        = "${var.ldap_user_search}"
-    ldap_group_search       = "${var.ldap_group_search}"
-    ldap_password           = "${var.ldap_password}"
-    ldap_user               = "${var.ldap_user}"
-    label_global_scheduling = "${var.label_global_scheduling}"
-    storage_driver          = "${var.storage_driver}"
-    data_path               = "${var.data_path}"
-    log_path                = "${var.log_path}"
-    cluster_name            = "${var.cluster_name}"
-    jvm_memory              = "${var.jvm_memory}"
-    container_memory        = "${var.container_memory}"
-    es_version              = "${var.image_version}"
-    xpack_volume            = "${var.xpack_volume}"
-    cpu_shares              = "${var.cpu_shares}"
+    logstash_password           = "${var.logstash_password}"
+    kibana_password             = "${var.kibana_password}"
+    elastic_password            = "${var.elastic_password}"
+    enable_monitoring           = "${var.enable_monitoring}"
+    monitoring_url              = "${var.monitoring_url}"
+    monitoring_user             = "${var.monitoring_user}"
+    monitoring_password         = "${var.monitoring_password}"
+    ldap_primary_server         = "${var.ldap_primary_server}"
+    ldap_secondary_server       = "${var.ldap_secondary_server}"
+    ldap_user_search            = "${var.ldap_user_search}"
+    ldap_group_search           = "${var.ldap_group_search}"
+    ldap_password               = "${var.ldap_password}"
+    ldap_user                   = "${var.ldap_user}"
+    label_global_scheduling     = "${var.label_global_scheduling}"
+    storage_driver              = "${var.storage_driver}"
+    data_path                   = "${var.data_path}"
+    log_path                    = "${var.log_path}"
+    cluster_name                = "${var.cluster_name}"
+    jvm_memory                  = "${var.jvm_memory}"
+    container_memory            = "${var.container_memory}"
+    es_version                  = "${var.image_version}"
+    xpack_volume                = "${var.xpack_volume}"
+    cpu_shares                  = "${var.cpu_shares}"
+    recover_after_master_nodes  = "${var.recover_after_master_nodes}"
+    recover_after_data_nodes    = "${var.recover_after_data_nodes}"
+    expected_master_nodes       = "${var.expected_master_nodes}"
+    expected_data_nodes         = "${var.expected_data_nodes}"
+    minimum_master_nodes        = "${var.minimum_master_nodes}"
+    master_hosts                = "${indent(6, join("\n", formatlist("ES_CONFIG_HOSTS_%s: %s", local.master_names, var.master_hosts)))}"
   }
 }
 data "template_file" "rancher_compose_master" {
@@ -95,6 +105,12 @@ data "template_file" "docker_compose_client" {
     es_version              = "${var.image_version}"
     xpack_volume            = "${var.xpack_volume}"
     cpu_shares              = "${var.cpu_shares}"
+    recover_after_master_nodes  = "${var.recover_after_master_nodes}"
+    recover_after_data_nodes    = "${var.recover_after_data_nodes}"
+    expected_master_nodes       = "${var.expected_master_nodes}"
+    expected_data_nodes         = "${var.expected_data_nodes}"
+    minimum_master_nodes        = "${var.minimum_master_nodes}"
+    master_hosts                = "${indent(6, join("\n", formatlist("ES_CONFIG_HOSTS_%s: %s", local.master_names, var.master_hosts)))}"
   }
 }
 data "template_file" "rancher_compose_client" {
@@ -144,6 +160,12 @@ data "template_file" "docker_compose_data" {
     es_version              = "${var.image_version}"
     xpack_volume            = "${var.xpack_volume}"
     cpu_shares              = "${var.cpu_shares}"
+    recover_after_master_nodes  = "${var.recover_after_master_nodes}"
+    recover_after_data_nodes    = "${var.recover_after_data_nodes}"
+    expected_master_nodes       = "${var.expected_master_nodes}"
+    expected_data_nodes         = "${var.expected_data_nodes}"
+    minimum_master_nodes        = "${var.minimum_master_nodes}"
+    master_hosts                = "${indent(6, join("\n", formatlist("ES_CONFIG_HOSTS_%s: %s", local.master_names, var.master_hosts)))}"
   }
 }
 data "template_file" "rancher_compose_data" {
