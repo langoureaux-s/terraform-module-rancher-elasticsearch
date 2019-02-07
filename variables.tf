@@ -112,6 +112,10 @@ variable "recover_after_data_nodes" {
   description = "Recover as long as this many data nodes have joined the cluster."
   default = ""
 }
+variable "recover_after_nodes" {
+  description = "Recover as long as this many data or master nodes have joined the cluster."
+  default = ""
+}
 variable "expected_nodes" {
   description = "The number of (data or master) nodes that are expected to be in the cluster. Recovery of local shards will start as soon as the expected number of nodes have joined the cluster"
   default = ""
@@ -122,6 +126,10 @@ variable "expected_master_nodes" {
 }
 variable "expected_data_nodes" {
   description = "The number of data nodes that are expected to be in the cluster. Recovery of local shards will start as soon as the expected number of data nodes have joined the cluster"
+  default = ""
+}
+variable "expected_nodes" {
+  description = "The number of (data or master) nodes that are expected to be in the cluster. Recovery of local shards will start as soon as the expected number of nodes have joined the cluster. Defaults to 0"
   default = ""
 }
 variable "minimum_master_nodes" {

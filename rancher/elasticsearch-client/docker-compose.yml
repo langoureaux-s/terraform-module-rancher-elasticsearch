@@ -26,6 +26,8 @@ services:
       ES_CONFIG_RECOVERAFTERDATANODES: ${recover_after_data_nodes}
       ES_CONFIG_EXPECTEDMASTERNODES: ${expected_master_nodes}
       ES_CONFIG_EXPECTEDDATANODES: ${expected_data_nodes}
+      ES_CONFIG_RECOVERAFTERNODES: ${recover_after_nodes}
+      ES_CONFIG_EXPECTEDNODES: ${expected_nodes}
       ES_CONFIG_MINIMUMMASTERNODES: ${minimum_master_nodes}
       ${master_hosts}
       ES_JVM_MEMORY: ${jvm_memory}

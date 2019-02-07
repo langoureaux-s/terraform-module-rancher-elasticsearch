@@ -4,6 +4,7 @@ volumes:
     driver: ${storage_driver}
     external: true
 services:
+    
   elasticsearch:
     tty: true
     image: harbor.hm.dm.ad/logmanagement/elasticsearch:${es_version}
@@ -12,9 +13,9 @@ services:
       - ${xpack_volume}:/usr/share/elasticsearch/config/x-pack
       - ${log_path}:/usr/share/elasticsearch/logs
     environment:
-      ELASTIC_PASSWORD: ${elastic_password}
       ES_CONFIG_NODEDATA: true
-      ES_CONFIG_NODEMASTER: false
+      ES_CONFIG_NODEMASTER: true
+      ELASTIC_PASSWORD: ${elastic_password}
       ES_MONITORING_ENABLED: ${enable_monitoring}
       ES_CONFIG_DESTRUCTIVEREQUIRESNAME: true
       ES_CONFIG_CLUSTERNAME: ${cluster_name}
@@ -42,11 +43,13 @@ services:
       ES_SECURITY_LDAP_GROUPSEARCH: ${ldap_group_search}
       ES_SECURITY_AUDIT_ENABLE: true
       ES_SECURITY_AUDIT_OUTPUTS_1: logfile
+      ES_USER_KIBANA_PASSWORD: ${kibana_password}
+      ES_USER_LOGSTASH_PASSWORD: ${logstash_password}
       ES_MONITORING_EXPORTERS_1: ${monitoring_url}
       ES_MONITORING_USER: ${monitoring_user}
       ES_MONITORING_PASSWORD: ${monitoring_password}
-    external_links:
-       - ${master_stack}:elasticsearch-master
+      ES_TEMPLATE_NUMBEROFSHARDS: 1
+      ES_TEMPLATE_NUMBEROFREPLICAS: 1
     ulimits:
       nproc: 65535
       nofile: 256000
