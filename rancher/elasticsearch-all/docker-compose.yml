@@ -1,6 +1,6 @@
 version: '2'
 volumes:
-  ${xpack_volume}:
+  ${replace(xpack_volume, "/", "_")}:
     driver: ${storage_driver}
     external: true
 services:
