@@ -50,6 +50,8 @@ services:
       ES_MONITORING_PASSWORD: ${monitoring_password}
       ES_TEMPLATE_NUMBEROFSHARDS: 1
       ES_TEMPLATE_NUMBEROFREPLICAS: 1
+    ports:
+      - 9200:9200/tcp
     ulimits:
       nproc: 65535
       nofile: 256000

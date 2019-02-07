@@ -229,6 +229,7 @@ data "template_file" "docker_compose_all" {
     expected_data_nodes         = "${var.expected_data_nodes}"
     recover_after_nodes         = "${var.recover_after_nodes}"
     expected_nodes              = "${var.expected_nodes}"
+    minimum_master_nodes        = "${var.minimum_master_nodes}"
     master_hosts                = "${indent(6, join("\n", formatlist("ES_CONFIG_HOSTS_%s: %s", local.master_names, var.master_hosts)))}"
   }
 }
