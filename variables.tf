@@ -11,8 +11,17 @@ variable "storage_driver" {
   description = "Storage driver to use for docker volume"
 }
 
-variable "label_global_scheduling" {
-  description = "The label to use when schedule this stack as global scheduling"
+variable "label_scheduling" {
+  description = "The label to use when schedule this stack"
+  default = ""
+}
+variable "global_scheduling" {
+  description = "Set to true if you should to deploy on all node that match label_scheduling"
+  default     = "true"
+}
+variable "scale" {
+  description = "Set the number of instance you should.Don't use it if you should global_scheduling as true"
+  default = ""
 }
 
 variable "role" {

@@ -13,7 +13,7 @@ terragrunt = {
   stack_name              = "elasticsearch-data"
   finish_upgrade          = "true"
   storage_driver          = "rancher-nfs"
-  label_global_scheduling = "elasticsearch.master=true"
+  label_scheduling        = "elasticsearch.master=true"
   role                    = "master"
   cluster_name            = "version"
   elastic_password        = "y1546n02h482I1u"

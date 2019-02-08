@@ -213,7 +213,8 @@ data "template_file" "docker_compose_all" {
     ldap_group_search           = "${var.ldap_group_search}"
     ldap_password               = "${var.ldap_password}"
     ldap_user                   = "${var.ldap_user}"
-    label_global_scheduling     = "${var.label_global_scheduling}"
+    label_scheduling            = "${var.label_scheduling}"
+    global_scheduling           = "${var.global_scheduling}"
     storage_driver              = "${var.storage_driver}"
     data_path                   = "${var.data_path}"
     log_path                    = "${var.log_path}"
@@ -238,6 +239,7 @@ data "template_file" "rancher_compose_all" {
   template = "${file("${path.module}/rancher/elasticsearch-all/rancher-compose.yml")}"
 
   vars {
+    scale = "${var.scale}"
   }
 }
 resource "rancher_stack" "this_all" {
