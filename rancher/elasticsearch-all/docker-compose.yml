@@ -59,7 +59,7 @@ services:
       memlock: -1
     cap_add:
       - IPC_LOCK
-    mem_limit: ${container_memory}
+    ${mem_limit}
     cpu_shares: ${cpu_shares}
     labels:
       io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$$$${stack_name}/$$$${service_name}
