@@ -10,6 +10,10 @@ variable "finish_upgrade" {
 variable "storage_driver" {
   description = "Storage driver to use for docker volume"
 }
+variable "commit_id" {
+  description = "The commit id that build image. It's usefull to force pull new image when use always the same tag"
+  default = ""
+}
 
 variable "label_scheduling" {
   description = "The label to use when schedule this stack"

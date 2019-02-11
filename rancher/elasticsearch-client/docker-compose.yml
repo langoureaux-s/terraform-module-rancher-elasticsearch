@@ -45,6 +45,7 @@ services:
       ES_MONITORING_EXPORTERS_1: ${monitoring_url}
       ES_MONITORING_USER: ${monitoring_user}
       ES_MONITORING_PASSWORD: ${monitoring_password}
+      COMMIT_ID: ${commit_id}
     ports:
       - 9200:9200/tcp
     external_links:
