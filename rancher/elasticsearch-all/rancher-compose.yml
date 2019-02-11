@@ -1,6 +1,7 @@
 version: '2'
 services:
   elasticsearch:
+    ${scale}
     retain_ip: true
     start_on_create: true
     health_check:
