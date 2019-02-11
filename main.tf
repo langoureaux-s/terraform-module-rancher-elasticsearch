@@ -127,7 +127,7 @@ data "template_file" "rancher_compose_client" {
   template = "${file("${path.module}/rancher/elasticsearch-client/rancher-compose.yml")}"
 
   vars {
-    "${var.scale != "" ? "scale: var.scale" : ""}"
+    scale = "${var.scale != "" ? "scale: var.scale" : ""}"
   }
 }
 resource "rancher_stack" "this_client" {
@@ -187,7 +187,7 @@ data "template_file" "rancher_compose_data" {
   template = "${file("${path.module}/rancher/elasticsearch-data/rancher-compose.yml")}"
 
   vars {
-    "${var.scale != "" ? "scale: var.scale" : ""}"
+    scale = "${var.scale != "" ? "scale: var.scale" : ""}"
   }
 }
 resource "rancher_stack" "this_data" {
@@ -249,7 +249,7 @@ data "template_file" "rancher_compose_all" {
   template = "${file("${path.module}/rancher/elasticsearch-all/rancher-compose.yml")}"
 
   vars {
-    "${var.scale != "" ? "scale: var.scale" : ""}"
+    scale = "${var.scale != "" ? "scale: var.scale" : ""}"
   }
 }
 resource "rancher_stack" "this_all" {
