@@ -58,6 +58,8 @@ data "template_file" "docker_compose_master" {
     minimum_master_nodes        = "${var.minimum_master_nodes}"
     master_hosts                = "${indent(6, join("\n", formatlist("ES_CONFIG_HOSTS_%s: %s", local.master_names, var.master_hosts)))}"
     commit_id                   = "${var.commit_id}"
+    default_number_shard        = "${var.default_number_shard}"
+    default_number_replica      = "${var.default_number_replica}"
   }
 }
 data "template_file" "rancher_compose_master" {
@@ -242,6 +244,8 @@ data "template_file" "docker_compose_all" {
     minimum_master_nodes        = "${var.minimum_master_nodes}"
     master_hosts                = "${indent(6, join("\n", formatlist("ES_CONFIG_HOSTS_%s: %s", local.master_names, var.master_hosts)))}"
     commit_id                   = "${var.commit_id}"
+    default_number_shard        = "${var.default_number_shard}"
+    default_number_replica      = "${var.default_number_replica}"
   }
 }
 data "template_file" "rancher_compose_all" {

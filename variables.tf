@@ -145,6 +145,14 @@ variable "master_hosts" {
   type = "list"
 }
 
+variable "default_number_shard" {
+  description = "The number of shard per default"
+  default = "1"
+}
+variable "default_number_replica" {
+  description = "The number of replica per default"
+  default = "0"
+}
 
 
 
