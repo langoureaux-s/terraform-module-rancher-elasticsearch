@@ -15,7 +15,7 @@ data "rancher_environment" "project" {
 
 locals {
   master_names = "${split(",", replace(upper(join(",", var.master_hosts)), "/[\\.-]/", ""))}"
-  data_path_names = "${split(",", replace(upper(join(",", dirname(var.data_path))), "/[\\.-]/", ""))}"
+  data_path_names = "${split(",", replace(upper(join(",", var.data_path)), "/[\\.-\\/]/", ""))}"
 }
 
 
