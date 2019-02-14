@@ -16,7 +16,7 @@ data "rancher_environment" "project" {
 locals {
   master_names    = "${split(",", replace(upper(join(",", var.master_hosts)), "/[\\.-]/", ""))}"
   master_hosts    = "${indent(6, join("\n", formatlist("ES_CONFIG_HOSTS_%s: %s", local.master_names, var.master_hosts)))}"
-  data_path_names = "${split(",", replace(upper(join(",", var.data_path)), "/[\\.-\\/]/", ""))}"
+  data_path_names = "${split(",", replace(upper(join(",", var.data_path)), "/[\\.\\-\\/_]/", ""))}"
   data_path       = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSDATA_%s: %s", local.data_path_names, var.data_path)))}"
   data_volumes    = "${indent(6, join("\n", formatlist("- %s:%s", var.data_path, var.data_path)))}"
   mem_limit       = "${var.container_memory != "" ? "mem_limit: ${var.container_memory}" : ""}"
