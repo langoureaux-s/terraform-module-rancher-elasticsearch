@@ -15,6 +15,7 @@ data "rancher_environment" "project" {
 
 locals {
   master_names = "${split(",", replace(upper(join(",", var.master_hosts)), "/[\\.-]/", ""))}"
+  data_path_names = "${split(",", replace(upper(join(",", dirname(var.data_path))), "/[\\.-]/", ""))}"
 }
 
 
@@ -41,7 +42,8 @@ data "template_file" "docker_compose_master" {
     label_scheduling            = "${var.label_scheduling}"
     global_scheduling           = "${var.global_scheduling}"
     storage_driver              = "${var.storage_driver}"
-    data_path                   = "${var.data_path}"
+    data_path                   = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSDATA_%s: %s", local.data_path_names, var.data_path)))}"
+    data_volumes                = "${indent(6, join("\n", formatlist("- %s", var.data_path)))}"
     log_path                    = "${var.log_path}"
     cluster_name                = "${var.cluster_name}"
     jvm_memory                  = "${var.jvm_memory}"
@@ -105,7 +107,8 @@ data "template_file" "docker_compose_client" {
     label_scheduling            = "${var.label_scheduling}"
     global_scheduling           = "${var.global_scheduling}"
     storage_driver              = "${var.storage_driver}"
-    data_path                   = "${var.data_path}"
+    data_path                   = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSDATA_%s: %s", local.data_path_names, var.data_path)))}"
+    data_volumes                = "${indent(6, join("\n", formatlist("- %s", var.data_path)))}"
     log_path                    = "${var.log_path}"
     cluster_name                = "${var.cluster_name}"
     jvm_memory                  = "${var.jvm_memory}"
@@ -165,7 +168,8 @@ data "template_file" "docker_compose_data" {
     label_scheduling            = "${var.label_scheduling}"
     global_scheduling           = "${var.global_scheduling}"
     storage_driver              = "${var.storage_driver}"
-    data_path                   = "${var.data_path}"
+    data_path                   = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSDATA_%s: %s", local.data_path_names, var.data_path)))}"
+    data_volumes                = "${indent(6, join("\n", formatlist("- %s", var.data_path)))}"
     log_path                    = "${var.log_path}"
     cluster_name                = "${var.cluster_name}"
     jvm_memory                  = "${var.jvm_memory}"
@@ -227,7 +231,8 @@ data "template_file" "docker_compose_all" {
     label_scheduling            = "${var.label_scheduling}"
     global_scheduling           = "${var.global_scheduling}"
     storage_driver              = "${var.storage_driver}"
-    data_path                   = "${var.data_path}"
+    data_path                   = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSDATA_%s: %s", local.data_path_names, var.data_path)))}"
+    data_volumes                = "${indent(6, join("\n", formatlist("- %s", var.data_path)))}"
     log_path                    = "${var.log_path}"
     cluster_name                = "${var.cluster_name}"
     jvm_memory                  = "${var.jvm_memory}"

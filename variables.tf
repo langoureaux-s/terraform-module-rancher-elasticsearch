@@ -98,6 +98,7 @@ variable "ldap_password" {
 
 variable "data_path" {
   description = "The data path for Elasticsearch"
+  type = "list"
 }
 variable "log_path" {
   description = "The log path for Elasticsearch"

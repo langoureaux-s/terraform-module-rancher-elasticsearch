@@ -8,7 +8,7 @@ services:
     tty: true
     image: harbor.hm.dm.ad/logmanagement/elasticsearch:${es_version}
     volumes:
-      - ${data_path}:/data
+      ${data_volumes}
       - ${xpack_volume}:/usr/share/elasticsearch/config/x-pack
       - ${log_path}:/usr/share/elasticsearch/logs
     environment:
@@ -32,7 +32,7 @@ services:
       ${master_hosts}
       ES_JVM_MEMORY: ${jvm_memory}
       ES_CONFIG_HTTPMAXCONTENTLENGTH: 500mb
-      ES_CONFIG_PATHSDATA_1: /data
+      ${data_path}
       ES_SECURITY_LDAP_ENABLED: true
       ES_SECURITY_LDAP_SERVERS_1: ${ldap_primary_server}
       ES_SECURITY_LDAP_SERVERS_2: ${ldap_secondary_server}
