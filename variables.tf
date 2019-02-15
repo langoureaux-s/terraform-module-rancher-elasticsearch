@@ -155,6 +155,11 @@ variable "default_number_replica" {
   default = "0"
 }
 
+variable "ports" {
+  description = "List of ports to expose"
+  default = []
+}
+
 
 
 

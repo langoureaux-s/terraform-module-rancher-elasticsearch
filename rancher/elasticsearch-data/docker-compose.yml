@@ -48,6 +48,7 @@ services:
       COMMIT_ID: ${commit_id}
     external_links:
        - ${master_stack}:elasticsearch-master
+    ${ports}
     ulimits:
       nproc: 65535
       nofile: 256000

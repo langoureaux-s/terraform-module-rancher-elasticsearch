@@ -20,6 +20,7 @@ locals {
   data_path       = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSDATA_%s: %s", local.data_path_names, var.data_path)))}"
   data_volumes    = "${indent(6, join("\n", formatlist("- %s:%s", var.data_path, var.data_path)))}"
   mem_limit       = "${var.container_memory != "" ? "mem_limit: ${var.container_memory}" : ""}"
+  ports           = "${length(var.ports) > 0 ? "ports: ${indent(6, "\n${join("\n", formatlist("- %s", var.ports))}")}" : ""}"
 }
 
 
@@ -66,6 +67,7 @@ data "template_file" "docker_compose_master" {
     commit_id                   = "${var.commit_id}"
     default_number_shard        = "${var.default_number_shard}"
     default_number_replica      = "${var.default_number_replica}"
+    ports                       = "${local.ports}"
   }
 }
 data "template_file" "rancher_compose_master" {
@@ -129,6 +131,7 @@ data "template_file" "docker_compose_client" {
     minimum_master_nodes        = "${var.minimum_master_nodes}"
     master_hosts                = "${local.master_hosts}"
     commit_id                   = "${var.commit_id}"
+    ports                       = "${local.ports}"
   }
 }
 data "template_file" "rancher_compose_client" {
@@ -190,6 +193,7 @@ data "template_file" "docker_compose_data" {
     minimum_master_nodes        = "${var.minimum_master_nodes}"
     master_hosts                = "${local.master_hosts}"
     commit_id                   = "${var.commit_id}"
+    ports                       = "${local.ports}"
   }
 }
 data "template_file" "rancher_compose_data" {
@@ -255,6 +259,7 @@ data "template_file" "docker_compose_all" {
     commit_id                   = "${var.commit_id}"
     default_number_shard        = "${var.default_number_shard}"
     default_number_replica      = "${var.default_number_replica}"
+    ports                       = "${local.ports}"
   }
 }
 data "template_file" "rancher_compose_all" {

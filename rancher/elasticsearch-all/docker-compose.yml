@@ -51,8 +51,7 @@ services:
       ES_TEMPLATE_NUMBEROFSHARDS: ${default_number_shard}
       ES_TEMPLATE_NUMBEROFREPLICAS: ${default_number_replica}
       COMMIT_ID: ${commit_id}
-    ports:
-      - 9200:9200/tcp
+    ${ports}
     ulimits:
       nproc: 65535
       nofile: 256000
