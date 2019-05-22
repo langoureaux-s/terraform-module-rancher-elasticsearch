@@ -155,6 +155,16 @@ variable "default_number_replica" {
   default = "0"
 }
 
+variable "disk_watermark_low" {
+  description = "Controls the low watermark for disk usage"
+  default = ""
+}
+
+variable "disk_watermark_high" {
+  description = "Controls the hight watermark for disk usage"
+  default = ""
+}
+
 variable "ports" {
   description = "List of ports to expose"
   default = []
