@@ -100,6 +100,11 @@ variable "data_path" {
   description = "The data path for Elasticsearch"
   type = "list"
 }
+variable "repo_path" {
+  description = "The repo path for Elasticsearch"
+  type = "list"
+  default = []
+}
 variable "log_path" {
   description = "The log path for Elasticsearch"
 }
