@@ -19,7 +19,7 @@ locals {
   data_path_names = "${split(",", replace(upper(join(",", var.data_path)), "/[\\.\\-\\/_]/", ""))}"
   data_path       = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSDATA_%s: %s", local.data_path_names, var.data_path)))}"
   data_volumes    = "${indent(6, join("\n", formatlist("- %s:%s", var.data_path, var.data_path)))}"
-  repo_path_names = "${length(var.repo_path) > 0 ? split(",", replace(upper(join(",", var.repo_path)), "/[\\.\\-\\/_]/", "")) : list()}"
+  repo_path_names = "${compact(split(",", replace(upper(join(",", var.repo_path)), "/[\\.\\-\\/_]/", "")))}"
   repo_path       = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSREPO_%s: %s", local.repo_path_names, var.repo_path)))}"
   repo_volumes    = "${indent(6, join("\n", formatlist("- %s:%s", var.repo_path, var.repo_path)))}"
   mem_limit       = "${var.container_memory != "" ? "mem_limit: ${var.container_memory}" : ""}"
