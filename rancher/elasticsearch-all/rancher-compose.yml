@@ -13,5 +13,5 @@ services:
       strategy: recreate
       initializing_timeout: 120000
       reinitializing_timeout: 120000
-      request_line: GET / HTTP/1.1
+      request_line: GET /_cluster/health HTTP/1.1
       
