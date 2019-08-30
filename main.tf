@@ -141,6 +141,8 @@ data "template_file" "docker_compose_client" {
     ports                       = "${local.ports}"
     disk_watermark_low          = "${var.disk_watermark_low}"
     disk_watermark_high         = "${var.disk_watermark_high}"
+    default_number_shard        = "${var.default_number_shard}"
+    default_number_replica      = "${var.default_number_replica}"
   }
 }
 data "template_file" "rancher_compose_client" {
@@ -207,6 +209,8 @@ data "template_file" "docker_compose_data" {
     ports                       = "${local.ports}"
     disk_watermark_low          = "${var.disk_watermark_low}"
     disk_watermark_high         = "${var.disk_watermark_high}"
+    default_number_shard        = "${var.default_number_shard}"
+    default_number_replica      = "${var.default_number_replica}"
   }
 }
 data "template_file" "rancher_compose_data" {
