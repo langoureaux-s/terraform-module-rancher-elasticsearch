@@ -45,6 +45,8 @@ services:
       ES_MONITORING_EXPORTERS_1: ${monitoring_url}
       ES_MONITORING_USER: ${monitoring_user}
       ES_MONITORING_PASSWORD: ${monitoring_password}
+      ES_TEMPLATE_NUMBEROFSHARDS: ${default_number_shard}
+      ES_TEMPLATE_NUMBEROFREPLICAS: ${default_number_replica}
       COMMIT_ID: ${commit_id}
     ${ports}
     external_links:
