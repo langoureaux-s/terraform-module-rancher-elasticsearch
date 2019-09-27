@@ -94,6 +94,9 @@ variable "ldap_user" {
 variable "ldap_password" {
   description = "The ldap password to browse"
 }
+variable "ldap_domain" {
+  description = "The AD domain"
+}
 
 
 variable "data_path" {

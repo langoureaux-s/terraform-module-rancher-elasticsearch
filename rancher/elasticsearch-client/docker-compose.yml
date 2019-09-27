@@ -40,6 +40,7 @@ services:
       ES_SECURITY_LDAP_PASSWORD: ${ldap_password}
       ES_SECURITY_LDAP_USERSEARCH: ${ldap_user_search}
       ES_SECURITY_LDAP_GROUPSEARCH: ${ldap_group_search}
+      ES_SECURITY_LDAP_DOMAIN: ${ldap_domain}
       ES_SECURITY_AUDIT_ENABLE: true
       ES_SECURITY_AUDIT_OUTPUTS_1: logfile
       ES_MONITORING_EXPORTERS_1: ${monitoring_url}
