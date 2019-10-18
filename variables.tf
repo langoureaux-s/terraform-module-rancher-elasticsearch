@@ -178,6 +178,10 @@ variable "ports" {
   default = []
 }
 
+variable "enable_audit" {
+  description = "Permit to enable or disable audit logs"
+  default = "true"
+}
 
 
 

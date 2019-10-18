@@ -76,6 +76,7 @@ data "template_file" "docker_compose_master" {
     ports                       = "${local.ports}"
     disk_watermark_low          = "${var.disk_watermark_low}"
     disk_watermark_high         = "${var.disk_watermark_high}"
+    enable_audit                = "${var.enable_audit}"
   }
 }
 data "template_file" "rancher_compose_master" {
@@ -145,6 +146,7 @@ data "template_file" "docker_compose_client" {
     disk_watermark_high         = "${var.disk_watermark_high}"
     default_number_shard        = "${var.default_number_shard}"
     default_number_replica      = "${var.default_number_replica}"
+    enable_audit                = "${var.enable_audit}"
   }
 }
 data "template_file" "rancher_compose_client" {
@@ -214,6 +216,7 @@ data "template_file" "docker_compose_data" {
     disk_watermark_high         = "${var.disk_watermark_high}"
     default_number_shard        = "${var.default_number_shard}"
     default_number_replica      = "${var.default_number_replica}"
+    enable_audit                = "${var.enable_audit}"
   }
 }
 data "template_file" "rancher_compose_data" {
@@ -285,6 +288,7 @@ data "template_file" "docker_compose_all" {
     ports                       = "${local.ports}"
     disk_watermark_low          = "${var.disk_watermark_low}"
     disk_watermark_high         = "${var.disk_watermark_high}"
+    enable_audit                = "${var.enable_audit}"
   }
 }
 data "template_file" "rancher_compose_all" {
