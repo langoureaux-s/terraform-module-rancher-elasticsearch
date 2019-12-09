@@ -14,7 +14,7 @@ data "rancher_environment" "project" {
 }
 
 locals {
-  master_names          = "${split(",", replace(upper(join(",", var.master_hosts)), "/[\\.-]/", ""))}"
+  master_names          = "${split(",", replace(upper(join(",", var.master_hosts)), "/[\\.\\-]/", ""))}"
   master_hosts          = "${indent(6, join("\n", formatlist("ES_CONFIG_HOSTS_%s: %s", local.master_names, var.master_hosts)))}"
   data_path_names       = "${split(",", replace(upper(join(",", var.data_path)), "/[\\.\\-\\/_]/", ""))}"
   data_path             = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSDATA_%s: %s", local.data_path_names, var.data_path)))}"
@@ -24,9 +24,9 @@ locals {
   repo_volumes          = "${indent(6, join("\n", formatlist("- %s:%s", var.repo_path, var.repo_path)))}"
   mem_limit             = "${var.container_memory != "" ? "mem_limit: ${var.container_memory}" : ""}"
   ports                 = "${length(var.ports) > 0 ? "ports: ${indent(6, "\n${join("\n", formatlist("- %s", var.ports))}")}" : ""}"
-  audit_includes_names  = "${compact(split(",", replace(upper(join(",", var.audit_includes)), "/[\\.-_]/", "")))}"
+  audit_includes_names  = "${compact(split(",", replace(upper(join(",", var.audit_includes)), "/[\\.\\-_]/", "")))}"
   audit_includes        = "${indent(6, join("\n", formatlist("ES_SECURITY_AUDIT_INCLUDES_%s: %s", local.audit_includes_names, var.audit_includes)))}"
-  audit_excludes_names  = "${compact(split(",", replace(upper(join(",", var.audit_excludes)), "/[\\.-_]/", "")))}"
+  audit_excludes_names  = "${compact(split(",", replace(upper(join(",", var.audit_excludes)), "/[\\.\\-_]/", "")))}"
   audit_excludes        = "${indent(6, join("\n", formatlist("ES_SECURITY_AUDIT_EXCLUDES_%s: %s", local.audit_excludes_names, var.audit_excludes)))}"
 }
 
