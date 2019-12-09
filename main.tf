@@ -24,9 +24,9 @@ locals {
   repo_volumes          = "${indent(6, join("\n", formatlist("- %s:%s", var.repo_path, var.repo_path)))}"
   mem_limit             = "${var.container_memory != "" ? "mem_limit: ${var.container_memory}" : ""}"
   ports                 = "${length(var.ports) > 0 ? "ports: ${indent(6, "\n${join("\n", formatlist("- %s", var.ports))}")}" : ""}"
-  audit_includes_names  = "${split(",", replace(upper(join(",", var.audit_includes)), "/[\\.-_]/", ""))}"
+  audit_includes_names  = "${length(var.audit_includes) > 0 ? split(",", replace(upper(join(",", var.audit_includes)), "/[\\.-_]/", "")) : []}"
   audit_includes        = "${indent(6, join("\n", formatlist("ES_SECURITY_AUDIT_INCLUDES_%s: %s", local.audit_includes_names, var.audit_includes)))}"
-  audit_excludes_names  = "${split(",", replace(upper(join(",", var.audit_excludes)), "/[\\.-_]/", ""))}"
+  audit_excludes_names  = "${length(var.audit_excludes) > 0 ? split(",", replace(upper(join(",", var.audit_excludes)), "/[\\.-_]/", "")) : []}"
   audit_excludes        = "${indent(6, join("\n", formatlist("ES_SECURITY_AUDIT_EXCLUDES_%s: %s", local.audit_excludes_names, var.audit_excludes)))}"
 }
 
