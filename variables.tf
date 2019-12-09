@@ -175,6 +175,7 @@ variable "disk_watermark_high" {
 
 variable "ports" {
   description = "List of ports to expose"
+  type = "list"
   default = []
 }
 
@@ -182,7 +183,15 @@ variable "enable_audit" {
   description = "Permit to enable or disable audit logs"
   default = "true"
 }
-
-
+variable "audit_includes" {
+  description = "Permit to enable only event type listed"
+  type = "list"
+  default = []
+}
+variable "audit_excludes" {
+  description = "Permit to disabled only event type listed"
+  type = "list"
+  default = []
+}
 
 

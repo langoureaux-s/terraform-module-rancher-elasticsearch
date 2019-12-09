@@ -42,6 +42,8 @@ services:
       ES_SECURITY_LDAP_GROUPSEARCH: ${ldap_group_search}
       ES_SECURITY_LDAP_DOMAIN: ${ldap_domain}
       ES_SECURITY_AUDIT_ENABLE: ${enable_audit}
+      ${audit_includes}
+      ${audit_excludes}
       ES_SECURITY_AUDIT_OUTPUTS_1: logfile
       ES_MONITORING_EXPORTERS_1: ${monitoring_url}
       ES_MONITORING_USER: ${monitoring_user}

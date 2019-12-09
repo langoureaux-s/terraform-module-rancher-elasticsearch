@@ -14,16 +14,20 @@ data "rancher_environment" "project" {
 }
 
 locals {
-  master_names    = "${split(",", replace(upper(join(",", var.master_hosts)), "/[\\.-]/", ""))}"
-  master_hosts    = "${indent(6, join("\n", formatlist("ES_CONFIG_HOSTS_%s: %s", local.master_names, var.master_hosts)))}"
-  data_path_names = "${split(",", replace(upper(join(",", var.data_path)), "/[\\.\\-\\/_]/", ""))}"
-  data_path       = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSDATA_%s: %s", local.data_path_names, var.data_path)))}"
-  data_volumes    = "${indent(6, join("\n", formatlist("- %s:%s", var.data_path, var.data_path)))}"
-  repo_path_names = "${compact(split(",", replace(upper(join(",", var.repo_path)), "/[\\.\\-\\/_]/", "")))}"
-  repo_path       = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSREPO_%s: %s", local.repo_path_names, var.repo_path)))}"
-  repo_volumes    = "${indent(6, join("\n", formatlist("- %s:%s", var.repo_path, var.repo_path)))}"
-  mem_limit       = "${var.container_memory != "" ? "mem_limit: ${var.container_memory}" : ""}"
-  ports           = "${length(var.ports) > 0 ? "ports: ${indent(6, "\n${join("\n", formatlist("- %s", var.ports))}")}" : ""}"
+  master_names          = "${split(",", replace(upper(join(",", var.master_hosts)), "/[\\.-]/", ""))}"
+  master_hosts          = "${indent(6, join("\n", formatlist("ES_CONFIG_HOSTS_%s: %s", local.master_names, var.master_hosts)))}"
+  data_path_names       = "${split(",", replace(upper(join(",", var.data_path)), "/[\\.\\-\\/_]/", ""))}"
+  data_path             = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSDATA_%s: %s", local.data_path_names, var.data_path)))}"
+  data_volumes          = "${indent(6, join("\n", formatlist("- %s:%s", var.data_path, var.data_path)))}"
+  repo_path_names       = "${compact(split(",", replace(upper(join(",", var.repo_path)), "/[\\.\\-\\/_]/", "")))}"
+  repo_path             = "${indent(6, join("\n", formatlist("ES_CONFIG_PATHSREPO_%s: %s", local.repo_path_names, var.repo_path)))}"
+  repo_volumes          = "${indent(6, join("\n", formatlist("- %s:%s", var.repo_path, var.repo_path)))}"
+  mem_limit             = "${var.container_memory != "" ? "mem_limit: ${var.container_memory}" : ""}"
+  ports                 = "${length(var.ports) > 0 ? "ports: ${indent(6, "\n${join("\n", formatlist("- %s", var.ports))}")}" : ""}"
+  audit_includes_names  = "${split(",", replace(upper(join(",", var.audit_includes)), "/[\\.-_]/", ""))}"
+  audit_includes        = "${indent(6, join("\n", formatlist("ES_SECURITY_AUDIT_INCLUDES_%s: %s", local.audit_includes_names, var.audit_includes)))}"
+  audit_excludes_names  = "${split(",", replace(upper(join(",", var.audit_excludes)), "/[\\.-_]/", ""))}"
+  audit_excludes        = "${indent(6, join("\n", formatlist("ES_SECURITY_AUDIT_EXCLUDES_%s: %s", local.audit_excludes_names, var.audit_excludes)))}"
 }
 
 
@@ -77,6 +81,8 @@ data "template_file" "docker_compose_master" {
     disk_watermark_low          = "${var.disk_watermark_low}"
     disk_watermark_high         = "${var.disk_watermark_high}"
     enable_audit                = "${var.enable_audit}"
+    audit_includes              = "${local.audit_includes}"
+    audit_excludes              = "${local.audit_excludes}"
   }
 }
 data "template_file" "rancher_compose_master" {
@@ -147,6 +153,8 @@ data "template_file" "docker_compose_client" {
     default_number_shard        = "${var.default_number_shard}"
     default_number_replica      = "${var.default_number_replica}"
     enable_audit                = "${var.enable_audit}"
+    audit_includes              = "${local.audit_includes}"
+    audit_excludes              = "${local.audit_excludes}"
   }
 }
 data "template_file" "rancher_compose_client" {
@@ -217,6 +225,8 @@ data "template_file" "docker_compose_data" {
     default_number_shard        = "${var.default_number_shard}"
     default_number_replica      = "${var.default_number_replica}"
     enable_audit                = "${var.enable_audit}"
+    audit_includes              = "${local.audit_includes}"
+    audit_excludes              = "${local.audit_excludes}"
   }
 }
 data "template_file" "rancher_compose_data" {
@@ -289,6 +299,8 @@ data "template_file" "docker_compose_all" {
     disk_watermark_low          = "${var.disk_watermark_low}"
     disk_watermark_high         = "${var.disk_watermark_high}"
     enable_audit                = "${var.enable_audit}"
+    audit_includes              = "${local.audit_includes}"
+    audit_excludes              = "${local.audit_excludes}"
   }
 }
 data "template_file" "rancher_compose_all" {
