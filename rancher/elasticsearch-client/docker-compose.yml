@@ -33,6 +33,7 @@ services:
       ES_JVM_MEMORY: ${jvm_memory}
       ES_CONFIG_HTTPMAXCONTENTLENGTH: 500mb
       ${data_path}
+      ES_CONFIG_REINDEX_WHITELIST: ${reindex_remote_whitelist}
       ES_SECURITY_LDAP_ENABLED: true
       ES_SECURITY_LDAP_SERVERS_1: ${ldap_primary_server}
       ES_SECURITY_LDAP_SERVERS_2: ${ldap_secondary_server}

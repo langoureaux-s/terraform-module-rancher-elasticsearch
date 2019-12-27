@@ -83,6 +83,7 @@ data "template_file" "docker_compose_master" {
     enable_audit                = "${var.enable_audit}"
     audit_includes              = "${local.audit_includes}"
     audit_excludes              = "${local.audit_excludes}"
+    reindex_remote_whitelist    = "${var.reindex_remote_whitelist}"
   }
 }
 data "template_file" "rancher_compose_master" {
@@ -155,6 +156,7 @@ data "template_file" "docker_compose_client" {
     enable_audit                = "${var.enable_audit}"
     audit_includes              = "${local.audit_includes}"
     audit_excludes              = "${local.audit_excludes}"
+    reindex_remote_whitelist    = "${var.reindex_remote_whitelist}"
   }
 }
 data "template_file" "rancher_compose_client" {
@@ -227,6 +229,7 @@ data "template_file" "docker_compose_data" {
     enable_audit                = "${var.enable_audit}"
     audit_includes              = "${local.audit_includes}"
     audit_excludes              = "${local.audit_excludes}"
+    reindex_remote_whitelist    = "${var.reindex_remote_whitelist}"
   }
 }
 data "template_file" "rancher_compose_data" {
@@ -301,6 +304,7 @@ data "template_file" "docker_compose_all" {
     enable_audit                = "${var.enable_audit}"
     audit_includes              = "${local.audit_includes}"
     audit_excludes              = "${local.audit_excludes}"
+    reindex_remote_whitelist    = "${var.reindex_remote_whitelist}"
   }
 }
 data "template_file" "rancher_compose_all" {
