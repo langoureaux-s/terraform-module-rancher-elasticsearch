@@ -36,7 +36,7 @@ variable "cluster_name" {
 }
 variable "image_version" {
   description = "The image version of Elasticsearch to use"
-  default = "6.8.2-6"
+  default = "7.5.1-1"
 }
 variable "elastic_password" {
   description = "The elastic password"
